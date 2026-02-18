@@ -2,6 +2,7 @@
 import React from 'react';
 import { Pillar } from '../types';
 
+// Antonio Batista - Projeto: MVP Nexo Institucional - "Dados estáticos que definem os valores fundamentais da cultura NEXO"
 const PILLARS: Pillar[] = [
   {
     title: "Conexão",

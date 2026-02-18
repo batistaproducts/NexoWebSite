@@ -2,6 +2,7 @@
 import React from 'react';
 import Pillars from '../components/Pillars';
 
+// Antonio Batista - Projeto: MVP Nexo Institucional - "Página 'Sobre': Detalhamento da visão institucional e CTA estratégico"
 const AboutPage: React.FC = () => {
   return (
     <div className="pt-32 pb-20">
@@ -29,6 +30,7 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Antonio Batista - Projeto: MVP Nexo Institucional - "Reuso do componente de Pilares para consistência de marca" */}
       <Pillars />
 
       <section className="container mx-auto px-6 mt-20">

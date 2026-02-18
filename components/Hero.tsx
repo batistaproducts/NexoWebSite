@@ -1,20 +1,12 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 interface HeroProps {
   onNavigate: (page: 'home' | 'about', anchor?: string) => void;
 }
 
+// Antonio Batista - Projeto: MVP Nexo Institucional - "Seção de Impacto: Primeira dobra do site focada em conversão e branding"
 const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
-  const [config, setConfig] = useState<any>(null);
-
-  useEffect(() => {
-    fetch('./data/config.json')
-      .then(res => res.json())
-      .then(data => setConfig(data))
-      .catch(err => console.error("Config fetch error", err));
-  }, []);
-
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full opacity-10 pointer-events-none">
@@ -39,10 +31,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             Conheça a Metodologia
           </button>
           <button 
-            onClick={() => {
-              const el = document.getElementById('academias');
-              el?.scrollIntoView({ behavior: 'smooth' });
-            }}
+            onClick={() => onNavigate('home', 'academias')}
             className="w-full md:w-auto border border-white/20 bg-white/5 backdrop-blur-sm text-white px-10 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-white/10 transition-all"
           >
             Encontre uma Unidade

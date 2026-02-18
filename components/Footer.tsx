@@ -1,7 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onNavigate: (page: 'home' | 'about', anchor?: string) => void;
+}
+
+// Antonio Batista - Projeto: MVP Nexo Institucional - "Componente de Rodapé: Implementação de links de navegação profunda e informações de rede"
+const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   const [config, setConfig] = useState<any>(null);
 
   useEffect(() => {
@@ -16,7 +21,10 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 md:col-span-1">
-            <div className="flex items-center space-x-2 mb-6">
+            <div 
+              className="flex items-center space-x-2 mb-6 cursor-pointer"
+              onClick={() => onNavigate('home')}
+            >
               <div className="w-8 h-8 bg-white flex items-center justify-center rounded-sm">
                 <span className="text-black font-extrabold text-lg">N</span>
               </div>
@@ -41,20 +49,21 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="text-white font-bold uppercase text-xs tracking-widest mb-6">Links Rápidos</h4>
             <ul className="space-y-3 text-sm text-gray-500">
-              <li><button onClick={() => window.scrollTo({top:0, behavior:'smooth'})} className="hover:text-white transition-colors uppercase text-left">Início</button></li>
-              <li><a href="#equipe" className="hover:text-white transition-colors uppercase block">Cultura & Pilares</a></li>
-              <li><a href="#estrutura" className="hover:text-white transition-colors uppercase block">Organograma</a></li>
-              <li><a href="#academias" className="hover:text-white transition-colors uppercase block">Onde Treinar</a></li>
+              {/* Antonio Batista - Projeto: MVP Nexo Institucional - "Links funcionais via onNavigate para navegação de âncoras" */}
+              <li><button onClick={() => onNavigate('home')} className="hover:text-white transition-colors uppercase text-left">Início</button></li>
+              <li><button onClick={() => onNavigate('home', 'equipe')} className="hover:text-white transition-colors uppercase text-left">Cultura & Pilares</button></li>
+              <li><button onClick={() => onNavigate('home', 'estrutura')} className="hover:text-white transition-colors uppercase text-left">Organograma</button></li>
+              <li><button onClick={() => onNavigate('home', 'academias')} className="hover:text-white transition-colors uppercase text-left">Onde Treinar</button></li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-white font-bold uppercase text-xs tracking-widest mb-6">Institucional</h4>
             <ul className="space-y-3 text-sm text-gray-500">
-              <li><a href="#" className="hover:text-white transition-colors uppercase">Sobre a NEXO</a></li>
-              <li><a href="#" className="hover:text-white transition-colors uppercase">Portal do Mestre</a></li>
-              <li><a href="#" className="hover:text-white transition-colors uppercase">Logística</a></li>
-              <li><a href="#" className="hover:text-white transition-colors uppercase">Suporte</a></li>
+              <li><button onClick={() => onNavigate('about')} className="hover:text-white transition-colors uppercase text-left">Sobre a NEXO</button></li>
+              <li><a href="#" className="hover:text-white transition-colors uppercase block">Portal do Mestre</a></li>
+              <li><a href="#" className="hover:text-white transition-colors uppercase block">Logística</a></li>
+              <li><a href="#" className="hover:text-white transition-colors uppercase block">Suporte</a></li>
             </ul>
           </div>
 

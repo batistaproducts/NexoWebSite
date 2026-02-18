@@ -2,38 +2,20 @@
 [
   {
     "id": "1",
-    "nome": "NEXO Matriz",
+    "nome": "NEXO - CT Garagem",
     "foto_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-    "endereco": "Av. Paulista, 1000",
-    "cidade": "São Paulo",
+    "endereco": "Rua Darcy Ribeiro, 228",
+    "cidade": "Osasco",
     "estado": "SP",
-    "mestre_responsavel": "Mestre Antonio"
+    "mestre_responsavel": "Mestre Rafael Brito"
   },
   {
     "id": "2",
-    "nome": "NEXO Rio",
+    "nome": "NEXO - Cond. São Cristóvão",
     "foto_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-    "endereco": "Rua das Laranjeiras, 45",
-    "cidade": "Rio de Janeiro",
-    "estado": "RJ",
-    "mestre_responsavel": "Mestre Ricardo"
-  },
-  {
-    "id": "3",
-    "nome": "NEXO Curitiba",
-    "foto_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-    "endereco": "Rua XV de Novembro, 200",
-    "cidade": "Curitiba",
-    "estado": "PR",
-    "mestre_responsavel": "Professor Carlos"
-  },
-  {
-    "id": "4",
-    "nome": "NEXO Campinas",
-    "foto_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-    "endereco": "Av. Anchieta, 500",
-    "cidade": "Campinas",
+    "endereco": "Rua juan vicente, 482",
+    "cidade": "Osasco",
     "estado": "SP",
-    "mestre_responsavel": "Professor Leandro"
+    "mestre_responsavel": "Mestre Cantor"
   }
 ]
