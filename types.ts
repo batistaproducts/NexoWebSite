@@ -7,6 +7,7 @@ export interface TeamMember {
   foto_url: string; // Espera string Base64 completa
   cargo: string;
   titulo: string;
+  bio?: string;
 }
 
 // Antonio Batista - Projeto: MVP Nexo Institucional - "Estrutura dinâmica para o organograma, permitindo múltiplos grupos como Fundadores e Mestres"

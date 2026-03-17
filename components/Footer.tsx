@@ -5,7 +5,7 @@ interface FooterProps {
   onNavigate: (page: 'home' | 'about', anchor?: string) => void;
 }
 
-// Antonio Batista - Projeto: MVP Nexo Institucional - "Componente de Rodapé: Implementação de links de navegação profunda e informações de rede"
+// Antonio Batista - MVP Nexo Institucional - 17/03/2026
 const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   const [config, setConfig] = useState<any>(null);
 
@@ -15,6 +15,9 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
       .then(data => setConfig(data))
       .catch(err => console.error("Config fetch error", err));
   }, []);
+
+  // Antonio Batista - MVP Nexo Institucional - 17/03/2026
+  const PLACEHOLDER_CNPJ = "00.000.000/0001-00";
 
   return (
     <footer className="bg-black py-20 border-t border-white/5">
@@ -49,7 +52,6 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div>
             <h4 className="text-white font-bold uppercase text-xs tracking-widest mb-6">Links Rápidos</h4>
             <ul className="space-y-3 text-sm text-gray-500">
-              {/* Antonio Batista - Projeto: MVP Nexo Institucional - "Links funcionais via onNavigate para navegação de âncoras" */}
               <li><button onClick={() => onNavigate('home')} className="hover:text-white transition-colors uppercase text-left">Início</button></li>
               <li><button onClick={() => onNavigate('home', 'equipe')} className="hover:text-white transition-colors uppercase text-left">Cultura & Pilares</button></li>
               <li><button onClick={() => onNavigate('home', 'estrutura')} className="hover:text-white transition-colors uppercase text-left">Organograma</button></li>
@@ -57,7 +59,8 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </ul>
           </div>
 
-          <div>
+          {/* Antonio Batista - MVP Nexo Institucional - 17/03/2026 */}
+          <div className="hidden">
             <h4 className="text-white font-bold uppercase text-xs tracking-widest mb-6">Institucional</h4>
             <ul className="space-y-3 text-sm text-gray-500">
               <li><button onClick={() => onNavigate('about')} className="hover:text-white transition-colors uppercase text-left">Sobre a NEXO</button></li>
@@ -82,7 +85,12 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] font-bold uppercase tracking-widest text-gray-600">
           <span>© 2024 NEXO BJJ PROTOCOLO - Todos os direitos reservados.</span>
-          <span>CNPJ: {config?.cnpj || "00.000.000/0001-00"}</span>
+          
+          {/* Antonio Batista - MVP Nexo Institucional - 17/03/2026 */}
+          {config?.cnpj && config.cnpj !== PLACEHOLDER_CNPJ && (
+            <span>CNPJ: {config.cnpj}</span>
+          )}
+
           <div className="flex items-center space-x-2">
             <span>Desenvolvido com Conexão</span>
             <div className="w-4 h-4 bg-white/20 rounded-full"></div>

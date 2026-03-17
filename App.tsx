@@ -8,11 +8,11 @@ import Academies from './components/Academies';
 import Footer from './components/Footer';
 import AboutPage from './pages/AboutPage';
 
-// Antonio Batista - Projeto: MVP Nexo Institucional - "Componente Raiz: Gerencia estado de visualização e sistema de âncoras cross-page"
+// Antonio Batista - MVP Nexo Institucional - 17/03/2026
 function App() {
   const [view, setView] = useState<'home' | 'about'>('home');
 
-  // Antonio Batista - Projeto: MVP Nexo Institucional - "Função de navegação unificada: Trata mudança de rota e scroll suave para âncoras"
+  // Antonio Batista - MVP Nexo Institucional - 17/03/2026
   const navigate = (page: 'home' | 'about', anchor?: string) => {
     setView(page);
     
@@ -34,7 +34,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white selection:bg-white selection:text-black">
-      {/* Antonio Batista - Projeto: MVP Nexo Institucional - "Cabeçalho com navegação principal" */}
+      {/* Antonio Batista - MVP Nexo Institucional - 17/03/2026 */}
       <Header onNavigate={navigate} currentPage={view} />
       
       <main>
@@ -55,7 +55,7 @@ function App() {
         )}
       </main>
       
-      {/* Antonio Batista - Projeto: MVP Nexo Institucional - "Rodapé com links funcionais sincronizados com o App" */}
+      {/* Antonio Batista - MVP Nexo Institucional - 17/03/2026 */}
       <Footer onNavigate={navigate} />
     </div>
   );

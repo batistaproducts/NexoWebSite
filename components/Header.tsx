@@ -6,7 +6,7 @@ interface HeaderProps {
   currentPage: 'home' | 'about';
 }
 
-// Antonio Batista - Projeto: MVP Nexo Institucional - "Componente de Header: Navegação estática e carregamento de configurações de rede"
+// Antonio Batista - MVP Nexo Institucional - 17/03/2026
 const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
   const [config, setConfig] = useState<any>(null);
 
@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
           className="flex items-center space-x-2 cursor-pointer group"
           onClick={() => onNavigate('home')}
         >
-          {/* Antonio Batista - Projeto: MVP Nexo Institucional - "Logo monograma minimalista com ajuste de alinhamento [NX]" */}
+          {/* Antonio Batista - MVP Nexo Institucional - 17/03/2026 */}
           <div className="w-10 h-10 bg-white flex items-center justify-center rounded-sm group-hover:bg-gray-200 transition-colors">
             <span className="text-black font-black text-sm tracking-tighter leading-none select-none">
               [NX]

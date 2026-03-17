@@ -5,7 +5,7 @@ interface HeroProps {
   onNavigate: (page: 'home' | 'about', anchor?: string) => void;
 }
 
-// Antonio Batista - Projeto: MVP Nexo Institucional - "Seção de Impacto: Primeira dobra do site focada em conversão e branding"
+// Antonio Batista - MVP Nexo Institucional - 17/03/2026
 const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">

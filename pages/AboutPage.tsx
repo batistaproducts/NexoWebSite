@@ -2,7 +2,7 @@
 import React from 'react';
 import Pillars from '../components/Pillars';
 
-// Antonio Batista - Projeto: MVP Nexo Institucional - "Página 'Sobre': Detalhamento da visão institucional e CTA estratégico"
+// Antonio Batista - MVP Nexo Institucional - 17/03/2026
 const AboutPage: React.FC = () => {
   return (
     <div className="pt-32 pb-20">
@@ -30,7 +30,7 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Antonio Batista - Projeto: MVP Nexo Institucional - "Reuso do componente de Pilares para consistência de marca" */}
+      {/* Antonio Batista - MVP Nexo Institucional - 17/03/2026 */}
       <Pillars />
 
       <section className="container mx-auto px-6 mt-20">
@@ -41,7 +41,7 @@ const AboutPage: React.FC = () => {
             onClick={() => window.open("https://forms.gle/NEXOBJJMasterRegistrationExample", "_blank")}
             className="bg-white text-black px-10 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-gray-200 transition-all"
           >
-            Fazer Parte do Conselho
+            Fazer parte da revolução
           </button>
         </div>
       </section>

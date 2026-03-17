@@ -1,14 +1,17 @@
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Academy } from '../types';
 
-// Antonio Batista - Projeto: MVP Nexo Institucional - "Listagem de unidades com filtros dinâmicos de Estado e Cidade e exibição de fotos em Base64"
+// Antonio Batista - MVP Nexo Institucional - 17/03/2026
 const Academies: React.FC = () => {
   const [academies, setAcademies] = useState<Academy[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterState, setFilterState] = useState('');
   const [filterCity, setFilterCity] = useState('');
+  const [selectedAcademy, setSelectedAcademy] = useState<Academy | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
+  // Antonio Batista - MVP Nexo Institucional - 17/03/2026
   useEffect(() => {
     fetch('./data/academies.json')
       .then(res => res.json())
@@ -19,7 +22,7 @@ const Academies: React.FC = () => {
       .catch(err => console.error("Error loading academies data", err));
   }, []);
 
-  // Antonio Batista - Projeto: MVP Nexo Institucional - "Lógica de extração única de Estados e Cidades para preenchimento dos selects de filtro"
+  // Antonio Batista - MVP Nexo Institucional - 17/03/2026
   const states = useMemo(() => Array.from(new Set(academies.map(a => a.estado))), [academies]);
   const cities = useMemo(() => 
     Array.from(new Set(academies.filter(a => !filterState || a.estado === filterState).map(a => a.cidade))), 
@@ -27,6 +30,7 @@ const Academies: React.FC = () => {
   );
 
   const filteredAcademies = useMemo(() => {
+    if (scrollRef.current) scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
     return academies.filter(a => {
       const matchState = !filterState || a.estado === filterState;
       const matchCity = !filterCity || a.cidade === filterCity;
@@ -34,10 +38,18 @@ const Academies: React.FC = () => {
     });
   }, [academies, filterState, filterCity]);
 
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const scrollTo = direction === 'left' ? scrollLeft - clientWidth : scrollLeft + clientWidth;
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+    }
+  };
+
   if (loading) return null;
 
   return (
-    <section id="academias" className="py-24 bg-[#050505]">
+    <section id="academias" className="py-24 bg-[#050505] overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between mb-16 gap-8">
           <div>
@@ -45,38 +57,152 @@ const Academies: React.FC = () => {
             <p className="text-gray-400">Encontre a NEXO mais próxima de você.</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-            <select className="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white" value={filterState} onChange={(e) => { setFilterState(e.target.value); setFilterCity(''); }}>
-              <option value="">Todos os Estados</option>
-              {states.sort().map(s => <option key={s} value={s}>{s}</option>)}
+            <select 
+              className="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-white/30 transition-colors" 
+              value={filterState} 
+              onChange={(e) => { setFilterState(e.target.value); setFilterCity(''); }}
+            >
+              <option value="" className="bg-[#0a0a0a]">Todos os Estados</option>
+              {states.sort().map(s => <option key={s} value={s} className="bg-[#0a0a0a]">{s}</option>)}
             </select>
-            <select className="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white" value={filterCity} onChange={(e) => setFilterCity(e.target.value)}>
-              <option value="">Todas as Cidades</option>
-              {cities.sort().map(c => <option key={c} value={c}>{c}</option>)}
+            <select 
+              className="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-white/30 transition-colors" 
+              value={filterCity} 
+              onChange={(e) => setFilterCity(e.target.value)}
+            >
+              <option value="" className="bg-[#0a0a0a]">Todas as Cidades</option>
+              {cities.sort().map(c => <option key={c} value={c} className="bg-[#0a0a0a]">{c}</option>)}
             </select>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredAcademies.map((academy) => (
-            <div key={academy.id} className="glass-card rounded-2xl overflow-hidden group">
-              <div className="relative h-64 overflow-hidden">
-                <img src={academy.foto_url} alt={academy.nome} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-500" />
-                <div className="absolute top-4 right-4 bg-white text-black text-[10px] font-bold px-2 py-1 rounded">{academy.estado}</div>
+        <div className="relative group">
+          {filteredAcademies.length > 0 && (
+            <>
+              <button 
+                onClick={() => scroll('left')}
+                className="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 z-10 w-12 h-12 bg-white text-black rounded-full flex items-center justify-center shadow-xl opacity-0 group-hover:opacity-100 transition-opacity hidden md:flex"
+                aria-label="Anterior"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              
+              <button 
+                onClick={() => scroll('right')}
+                className="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 z-10 w-12 h-12 bg-white text-black rounded-full flex items-center justify-center shadow-xl opacity-0 group-hover:opacity-100 transition-opacity hidden md:flex"
+                aria-label="Próximo"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </>
+          )}
+
+          <div 
+            ref={scrollRef}
+            className="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory scrollbar-hide no-scrollbar"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {filteredAcademies.length > 0 ? (
+              filteredAcademies.map((academy) => (
+                <div 
+                  key={academy.id} 
+                  className="min-w-[85%] sm:min-w-[45%] lg:min-w-[31%] snap-center glass-card rounded-2xl overflow-hidden group/card transition-all hover:border-white/20 flex flex-col"
+                >
+                  <div className="relative h-64 overflow-hidden bg-white/5">
+                    <img 
+                      src={academy.foto_url} 
+                      alt={academy.nome} 
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover opacity-60 group-hover/card:opacity-100 group-hover/card:scale-105 transition-all duration-700" 
+                    />
+                    <div className="absolute top-4 right-4 bg-white text-black text-[10px] font-bold px-2 py-1 rounded shadow-lg">
+                      {academy.estado}
+                    </div>
+                  </div>
+                  <div className="p-6 flex-grow flex flex-col">
+                    <h3 className="text-2xl font-bold uppercase mb-2 tracking-tighter">{academy.nome}</h3>
+                    <p className="text-gray-400 text-sm mb-6 h-12 line-clamp-2">{academy.endereco}</p>
+                    
+                    <div className="mt-auto">
+                       <button 
+                        onClick={() => setSelectedAcademy(academy)}
+                        className="w-full py-3 border border-white/10 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all"
+                      >
+                        Detalhes
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="w-full py-20 text-center border border-dashed border-white/10 rounded-2xl">
+                <p className="text-gray-500 uppercase tracking-widest text-sm">Nenhuma unidade encontrada para esta região.</p>
               </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold uppercase mb-2">{academy.nome}</h3>
-                <p className="text-gray-400 text-sm mb-4 h-12 line-clamp-2">{academy.endereco}</p>
-                <div className="flex items-center justify-between border-t border-white/10 pt-4">
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Antonio Batista - MVP Nexo Institucional - 17/03/2026 */}
+      {selectedAcademy && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl animate-in fade-in duration-300">
+          <div className="relative w-full max-w-2xl glass-card rounded-3xl overflow-hidden shadow-2xl">
+            <button 
+              onClick={() => setSelectedAcademy(null)}
+              className="absolute top-6 right-6 z-10 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l18 18" />
+              </svg>
+            </button>
+
+            <div className="grid grid-cols-1 md:grid-cols-2">
+              <div className="h-64 md:h-full bg-white/5">
+                <img 
+                  src={selectedAcademy.foto_url} 
+                  alt={selectedAcademy.nome} 
+                  className="w-full h-full object-cover opacity-80"
+                />
+              </div>
+              <div className="p-8 md:p-12 flex flex-col justify-center">
+                <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-2">Unidade Oficial NEXO</div>
+                <h3 className="text-3xl font-bold uppercase tracking-tighter mb-6">{selectedAcademy.nome}</h3>
+                
+                <div className="space-y-6">
                   <div>
-                    <span className="text-[10px] uppercase text-gray-500 font-bold block mb-1">Mestre Responsável</span>
-                    <span className="font-semibold text-sm">{academy.mestre_responsavel}</span>
+                    <span className="text-[10px] uppercase text-gray-500 font-bold block mb-1">Localização</span>
+                    <p className="text-sm text-gray-300 leading-relaxed">
+                      {selectedAcademy.endereco}<br />
+                      {selectedAcademy.cidade} - {selectedAcademy.estado}
+                    </p>
+                  </div>
+
+                  <div>
+                    <span className="text-[10px] uppercase text-gray-500 font-bold block mb-1">Liderança Técnica</span>
+                    <p className="text-sm font-semibold text-white">
+                      {selectedAcademy.mestre_responsavel}
+                    </p>
+                  </div>
+
+                  <div className="pt-6">
+                    <button 
+                      className="w-full bg-white text-black py-4 rounded-xl font-bold uppercase text-xs tracking-widest hover:bg-gray-200 transition-all"
+                      onClick={() => window.open(`https://www.google.com/maps/search/${encodeURIComponent(selectedAcademy.nome + " " + selectedAcademy.endereco)}`, '_blank')}
+                    >
+                      Como Chegar
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 };
