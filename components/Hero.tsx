@@ -2,7 +2,7 @@
 import React from 'react';
 
 interface HeroProps {
-  onNavigate: (page: 'home' | 'about', anchor?: string) => void;
+  onNavigate: (page: 'home' | 'about' | 'structure' | 'academies', anchor?: string) => void;
 }
 
 // Antonio Batista - MVP Nexo Institucional - 17/03/2026
@@ -31,7 +31,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             Conheça a Metodologia
           </button>
           <button 
-            onClick={() => onNavigate('home', 'academias')}
+            onClick={() => onNavigate('academies')}
             className="w-full md:w-auto border border-white/20 bg-white/5 backdrop-blur-sm text-white px-10 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-white/10 transition-all"
           >
             Encontre uma Unidade

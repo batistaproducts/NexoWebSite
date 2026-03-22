@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 interface FooterProps {
-  onNavigate: (page: 'home' | 'about', anchor?: string) => void;
+  onNavigate: (page: 'home' | 'about' | 'structure' | 'academies', anchor?: string) => void;
 }
 
 // Antonio Batista - MVP Nexo Institucional - 17/03/2026
@@ -53,9 +53,9 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <h4 className="text-white font-bold uppercase text-xs tracking-widest mb-6">Links Rápidos</h4>
             <ul className="space-y-3 text-sm text-gray-500">
               <li><button onClick={() => onNavigate('home')} className="hover:text-white transition-colors uppercase text-left">Início</button></li>
-              <li><button onClick={() => onNavigate('home', 'equipe')} className="hover:text-white transition-colors uppercase text-left">Cultura & Pilares</button></li>
-              <li><button onClick={() => onNavigate('home', 'estrutura')} className="hover:text-white transition-colors uppercase text-left">Organograma</button></li>
-              <li><button onClick={() => onNavigate('home', 'academias')} className="hover:text-white transition-colors uppercase text-left">Onde Treinar</button></li>
+              <li><button onClick={() => onNavigate('about')} className="hover:text-white transition-colors uppercase text-left">Cultura & Pilares</button></li>
+              <li><button onClick={() => onNavigate('structure')} className="hover:text-white transition-colors uppercase text-left">Organograma</button></li>
+              <li><button onClick={() => onNavigate('academies')} className="hover:text-white transition-colors uppercase text-left">Onde Treinar</button></li>
             </ul>
           </div>
 

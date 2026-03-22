@@ -7,13 +7,15 @@ import Structure from './components/Structure';
 import Academies from './components/Academies';
 import Footer from './components/Footer';
 import AboutPage from './pages/AboutPage';
+import StructurePage from './pages/StructurePage';
+import AcademiesPage from './pages/AcademiesPage';
 
 // Antonio Batista - MVP Nexo Institucional - 17/03/2026
 function App() {
-  const [view, setView] = useState<'home' | 'about'>('home');
+  const [view, setView] = useState<'home' | 'about' | 'structure' | 'academies'>('home');
 
   // Antonio Batista - MVP Nexo Institucional - 17/03/2026
-  const navigate = (page: 'home' | 'about', anchor?: string) => {
+  const navigate = (page: 'home' | 'about' | 'structure' | 'academies', anchor?: string) => {
     setView(page);
     
     if (anchor) {
@@ -38,21 +40,18 @@ function App() {
       <Header onNavigate={navigate} currentPage={view} />
       
       <main>
-        {view === 'home' ? (
+        {view === 'home' && (
           <>
             <Hero onNavigate={navigate} />
             <div className="relative">
               <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
             </div>
             <Pillars />
-            <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-            <Structure />
-            <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-            <Academies />
           </>
-        ) : (
-          <AboutPage />
         )}
+        {view === 'about' && <AboutPage />}
+        {view === 'structure' && <StructurePage />}
+        {view === 'academies' && <AcademiesPage />}
       </main>
       
       {/* Antonio Batista - MVP Nexo Institucional - 17/03/2026 */}

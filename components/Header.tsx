@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 
 interface HeaderProps {
-  onNavigate: (page: 'home' | 'about', anchor?: string) => void;
-  currentPage: 'home' | 'about';
+  onNavigate: (page: 'home' | 'about' | 'structure' | 'academies', anchor?: string) => void;
+  currentPage: 'home' | 'about' | 'structure' | 'academies';
 }
 
 // Antonio Batista - MVP Nexo Institucional - 17/03/2026
@@ -35,8 +35,8 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
         
         <nav className="hidden md:flex items-center space-x-8 text-sm font-medium uppercase tracking-wider text-gray-400">
           <button onClick={() => onNavigate('about')} className={`${currentPage === 'about' ? 'text-white' : 'hover:text-white'} transition-colors uppercase`}>A Equipe</button>
-          <button onClick={() => onNavigate('home', 'estrutura')} className="hover:text-white transition-colors uppercase">Estrutura</button>
-          <button onClick={() => onNavigate('home', 'academias')} className="hover:text-white transition-colors uppercase">Academias</button>
+          <button onClick={() => onNavigate('structure')} className={`${currentPage === 'structure' ? 'text-white' : 'hover:text-white'} transition-colors uppercase`}>Estrutura</button>
+          <button onClick={() => onNavigate('academies')} className={`${currentPage === 'academies' ? 'text-white' : 'hover:text-white'} transition-colors uppercase`}>Academias</button>
         </nav>
 
         <div>

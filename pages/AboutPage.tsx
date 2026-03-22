@@ -38,7 +38,7 @@ const AboutPage: React.FC = () => {
           <h2 className="text-3xl font-bold uppercase mb-6">Pronto para o Próximo Passo?</h2>
           <p className="text-gray-400 mb-10 max-w-xl mx-auto">Junte-se a uma rede que valoriza seu trabalho e oferece autonomia real para sua academia prosperar.</p>
           <button 
-            onClick={() => window.open("https://forms.gle/NEXOBJJMasterRegistrationExample", "_blank")}
+            onClick={() => window.open("https://forms.gle/8XwEsTSTh94aPTtJA", "_blank")}
             className="bg-white text-black px-10 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-gray-200 transition-all"
           >
             Fazer parte da revolução
