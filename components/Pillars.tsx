@@ -2,7 +2,7 @@
 import React from 'react';
 import { Pillar } from '../types';
 
-// Antonio Batista - MVP Nexo Institucional - 17/03/2026
+// Antonio Batista - MVP Nexo Institucional - 22/03/2026
 const PILLARS: Pillar[] = [
   {
     title: "Conexão",
@@ -11,7 +11,7 @@ const PILLARS: Pillar[] = [
   },
   {
     title: "Autonomia",
-    description: "Liberdade financeira real. Quimonos a preço de custo e lucro focado no mestre executor.",
+    description: "A [NEXO] foca no suporte e não no controle dos mestres. Nosso foco é a evolução constate! Não interferimos em valores de mensalidades ou equipamentos.",
     icon: "🔓"
   },
   {
