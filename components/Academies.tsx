@@ -31,7 +31,7 @@ const Academies: React.FC = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/data/academies.json');
+      const res = await fetch('data/academies.json');
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
       const data = await res.json();
       setAcademies(data);
