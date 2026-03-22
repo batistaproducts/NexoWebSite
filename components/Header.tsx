@@ -11,7 +11,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
   const [config, setConfig] = useState<any>(null);
 
   useEffect(() => {
-    fetch('./data/config.json')
+    fetch('/data/config.json')
       .then(res => res.json())
       .then(data => setConfig(data))
       .catch(err => console.error("Config fetch error", err));

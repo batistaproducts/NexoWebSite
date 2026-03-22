@@ -61,9 +61,30 @@ const MemberSkeleton: React.FC = () => (
 const Structure: React.FC = () => {
   const [data, setData] = useState<StructureData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
 
   // Antonio Batista - Organograma - 22/03/2026
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch('/data/structure.json');
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      const json = await res.json();
+      setData(json);
+    } catch (err) {
+      console.error("Error loading team data", err);
+      setError(err instanceof Error ? err.message : "Erro desconhecido ao carregar dados.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const renderGroup = React.useCallback((title: string, members: TeamMember[]) => (
     <div key={title} className="mb-20 last:mb-0">
       <div className="flex items-center justify-center space-x-4 mb-12">
@@ -185,20 +206,6 @@ const Structure: React.FC = () => {
     </div>
   ), [selectedMember]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch('./data/structure.json');
-        const json = await res.json();
-        setData(json);
-      } catch (err) {
-        console.error("Error loading team data", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
 
   if (loading) {
     return (
@@ -218,7 +225,34 @@ const Structure: React.FC = () => {
     );
   }
 
-  if (!data) return null;
+  if (error) {
+    return (
+      <section id="estrutura" className="py-24">
+        <div className="container mx-auto px-6 text-center">
+          <div className="max-w-md mx-auto p-8 border border-white/10 rounded-2xl bg-white/5">
+            <h2 className="text-xl font-bold uppercase mb-4">Erro ao carregar organograma</h2>
+            <p className="text-gray-400 text-sm mb-8">{error}</p>
+            <button 
+              onClick={fetchData}
+              className="px-8 py-3 bg-white text-black font-bold uppercase text-xs tracking-widest hover:bg-gray-200 transition-all rounded-lg"
+            >
+              Tentar Novamente
+            </button>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!data || Object.keys(data).length === 0) {
+    return (
+      <section id="estrutura" className="py-24">
+        <div className="container mx-auto px-6 text-center">
+          <p className="text-gray-500 uppercase tracking-[0.5em] text-xs font-bold">Nenhum dado encontrado no organograma.</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="estrutura" className="py-24">
