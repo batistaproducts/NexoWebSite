@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { StructureData, TeamMember } from '../types';
+import { structureData } from '../src/data/structure';
 import { X } from 'lucide-react';
 
 // Antonio Batista - Organograma - 22/03/2026
@@ -61,28 +62,12 @@ const MemberSkeleton: React.FC = () => (
 const Structure: React.FC = () => {
   const [data, setData] = useState<StructureData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
 
   // Antonio Batista - Organograma - 22/03/2026
-  const fetchData = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch('data/structure.json');
-      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-      const json = await res.json();
-      setData(json);
-    } catch (err) {
-      console.error("Error loading team data", err);
-      setError(err instanceof Error ? err.message : "Erro desconhecido ao carregar dados.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchData();
+    setData(structureData as any);
+    setLoading(false);
   }, []);
 
   const renderGroup = React.useCallback((title: string, members: TeamMember[]) => (
@@ -219,25 +204,6 @@ const Structure: React.FC = () => {
             {[1, 2, 3, 4, 5].map((i) => (
               <MemberSkeleton key={i} />
             ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  if (error) {
-    return (
-      <section id="estrutura" className="py-24">
-        <div className="container mx-auto px-6 text-center">
-          <div className="max-w-md mx-auto p-8 border border-white/10 rounded-2xl bg-white/5">
-            <h2 className="text-xl font-bold uppercase mb-4">Erro ao carregar organograma</h2>
-            <p className="text-gray-400 text-sm mb-8">{error}</p>
-            <button 
-              onClick={fetchData}
-              className="px-8 py-3 bg-white text-black font-bold uppercase text-xs tracking-widest hover:bg-gray-200 transition-all rounded-lg"
-            >
-              Tentar Novamente
-            </button>
           </div>
         </div>
       </section>

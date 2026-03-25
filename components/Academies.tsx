@@ -3,6 +3,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { Academy } from '../types';
+import { academiesData } from '../src/data/academies';
 
 // Antonio Batista - Unidades - 22/03/2026
 const AcademySkeleton: React.FC = () => (
@@ -27,25 +28,17 @@ const Academies: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Antonio Batista - Unidades - 22/03/2026
-  const fetchData = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch('data/academies.json');
-      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-      const data = await res.json();
-      setAcademies(data);
-    } catch (err) {
-      console.error("Error loading academies data", err);
-      setError(err instanceof Error ? err.message : "Erro desconhecido ao carregar dados.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchData();
+    setAcademies(academiesData);
+    setLoading(false);
   }, []);
+
+  const fetchData = async () => {
+    // Mantendo para compatibilidade com o botão de erro, embora não seja mais necessário
+    setLoading(true);
+    setAcademies(academiesData);
+    setLoading(false);
+  };
 
   // Antonio Batista - MVP Nexo Institucional - 17/03/2026
   const states = useMemo(() => Array.from(new Set(academies.map(a => a.estado))), [academies]);
