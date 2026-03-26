@@ -15,14 +15,15 @@ export interface StructureData {
   [groupName: string]: TeamMember[];
 }
 
+// Antonio Batista - MVP Nexo Institucional - 26/03/2026
 export interface Academy {
   id: string;
   nome: string;
-  foto_url: string;
+  foto_url?: string;
   endereco: string;
   cidade: string;
   estado: string;
-  mestre_responsavel: string;
+  mestre_responsavel?: string;
 }
 
 export interface Pillar {
