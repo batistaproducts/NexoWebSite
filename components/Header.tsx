@@ -13,16 +13,14 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    fetch('data/config.json')
+    fetch('/data/config.json')
       .then(res => res.json())
       .then(data => setConfig(data))
       .catch(err => console.error("Config fetch error", err));
   }, []);
 
   const handleBeAMaster = () => {
-    if (config?.googleFormUrl) {
-      window.open(config.googleFormUrl, '_blank');
-    }
+    window.open("https://forms.gle/8XwEsTSTh94aPTtJA", "_blank");
   };
 
   const navLinks = (
